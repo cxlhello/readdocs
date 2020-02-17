@@ -10,8 +10,9 @@ Welcome to chiron's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
-
+   test/test.rst
+   test/i4t.md
+   test/README
 Indices and tables
 ==================
 
@@ -21,6 +22,4 @@ Indices and tables
 
 
 
-test/test.rst
-test/i4t.md
-
+   :caption: Contents:
