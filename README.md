@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ZVChain
 [![](https://travis-ci.org/zvchain/zvchain.svg?branch=develop)](https://travis-ci.org/zvchain/zvchain)
 
@@ -29,3 +30,6 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
+=======
+# readdocs
+>>>>>>> 8e739dec6f28800ae5d30116048b9a9828ad50be
