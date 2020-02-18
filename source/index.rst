@@ -12,7 +12,9 @@ Welcome to chiron's documentation!
 
    test/test.rst
    test/i4t.md
-   test/README
+   test/README.md
+   test/tuto.rst
+
 Indices and tables
 ==================
 
