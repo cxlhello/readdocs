@@ -3,25 +3,25 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to chiron's documentation!
-==================================
+##############################################################
+CHIRON 技术文档
+##############################################################
+
+CHIRON 是一个稳定、高效、安全的区块链底层平台，经过多家机构、多个应用，长时间在生产环境运行的实际检验。
+
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   test/test.rst
-   test/i4t.md
-   test/README.md
-   test/tuto.rst
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   introduction.md
+   design/index.rst
+   installation.md
+   manual/index.rst
+   api.md
+   browser/index.rst
+   sdk/index.md
+   faq.md
+   community.md
 
 
-
-   :caption: Contents:
