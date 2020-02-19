@@ -1,0 +1,9 @@
+{% extends "!layout.html" %}
+{%- if pagename == '404' %}{% set metatags = '<base href="/zh_CN/latest/">\n  ' + metatags %}{% endif %}
+{% block sidebartitle %}
+{{ super() }}
+<br>
+<img style="background-color:#fff; height: unset; width: unset;" alt="CHIRON"
+     src={{ pathto("_static/images/chiron.png",1) }} />
+<br>
+{% endblock %}
