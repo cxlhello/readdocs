@@ -10,9 +10,4 @@
    :hidden:
    :maxdepth: 2
 
-   test/test.rst
-   test/i4t.md
-   test/README.md
-   test/tuto.rst
-
 
