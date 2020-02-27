@@ -3,6 +3,10 @@
 安全控制
 ##############################################################
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
 
+   authority.md
 
 
