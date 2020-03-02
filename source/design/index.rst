@@ -13,7 +13,7 @@
    architecture/index.rst
    consensus/index.rst
    virtual_machine/index.rst
-   p2p/index.rst
+   p2p/index.md
    security_control/index.rst
    storage/index.rst
    data_structure/index.rst
