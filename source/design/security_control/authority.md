@@ -70,7 +70,7 @@ chiron 权限系统是利用智能合约来控制的，在本权限系统中，�
 ##### Parameters
 `_node_id`:该节点的id
 `_org_id`:需要添加到目的组织的id
-`_miner_role`:表示矿工类型。`1`表示提案矿工，`2`表示验证矿工
+`_miner_role`:表示矿工类型。`1`表示提案矿工，`2`表示验证矿工, `3`表示两种身份的矿工：既是提案矿工又是验证矿工
 `_vrf_pk`:vrf_pk
 `_bls_pk`:bls_pk
 `_weight`:表示矿工权重
@@ -81,7 +81,7 @@ chiron 权限系统是利用智能合约来控制的，在本权限系统中，�
 ##### Parameters
 `_node_id`:要批准的该节点的id
 `_org_id`:要批准的需要添加到目的组织的id
-`_miner_role`:要批准的矿工类型。`1`表示提案矿工，`2`表示验证矿工
+`_miner_role`:要批准的矿工类型。`1`表示提案矿工，`2`表示验证矿工，`3`表示两种身份的矿工：既是提案矿工又是验证矿工
 `_vrf_pk`:要批准的vrf_pk
 `_bls_pk`:要批准的bls_pk
 `_weight`:要批准的矿工权重
@@ -92,7 +92,7 @@ chiron 权限系统是利用智能合约来控制的，在本权限系统中，�
 ##### Parameters
 `_node_id`:该节点的id
 `_org_id`:该节点所存在的组织的id
-`_miner_role`:要分配的矿工类型。`1`表示提案矿工，`2`表示验证矿工
+`_miner_role`:要分配的矿工类型。`1`表示提案矿工，`2`表示验证矿工，`3`表示两种身份的矿工：既是提案矿工又是验证矿工
 `_vrf_pk`:vrf_pk
 `_bls_pk`:bls_pk
 `_weight`:矿工权重
@@ -103,26 +103,26 @@ chiron 权限系统是利用智能合约来控制的，在本权限系统中，�
 ##### Parameters
 `_node_id`:要批准的该节点的id
 `_org_id`:要批准的需要添加到目的组织的id
-`_miner_role`:要批准的矿工类型。`1`表示提案矿工，`2`表示验证矿工
+`_miner_role`:要批准的矿工类型。`1`表示提案矿工，`2`表示验证矿工，`3`表示两种身份的矿工：既是提案矿工又是验证矿工
 `_vrf_pk`:要批准的vrf_pk
 `_bls_pk`:要批准的bls_pk
 `_weight`:要批准的矿工权重
 
 * * *
-#### update_miner_status
-由联盟管理员帐户执行，用于更改节点的矿工状态时使用
+#### remove_miner
+由联盟管理员帐户执行，用于移除矿工信息。
 ##### Parameters
-`_node_id`:要批准的该节点的id
-`_org_id`:要批准的需要添加到目的组织的id
-`_action`:操作符，`1`表示暂停矿工，`2`表示矿工从已暂停的状态中恢复为激活状态
+`_node_id`:要移除矿工的节点的id
+`_org_id`:要移除矿工所在的组织的id
+`_disable_node`:bool值，`true`表示让节点状态变为暂停状态，即停止同步。`false`表示节点还可以正常作为同步节点，但是不能作为矿工身份
 
 * * *
-#### approve_miner_status
-由联盟管理员帐户执行，用于批准更改节点的矿工状态请求时使用。当得到多数的联盟管理员批准后方可生效。
+#### approve_remove_miner
+由联盟管理员帐户执行，用于批准移除矿工信息。当得到多数的联盟管理员批准后方可生效。
 ##### Parameters
-`_node_id`:要批准的该节点的id
-`_org_id`:要批准的需要添加到目的组织的id
-`_action`:操作符，`1`表示暂停矿工，`2`表示将矿工从已暂停的状态中恢复为激活状态
+`_node_id`:要批准移除矿工的节点的id
+`_org_id`:要批准移除矿工所在的组织的id
+`_disable_node`:bool值，`true`表示让节点状态变为暂停状态，即停止同步。`false`表示节点还可以正常作为同步节点，但是不能作为矿工身份
 
 * * *
 
@@ -191,6 +191,7 @@ chiron 权限系统是利用智能合约来控制的，在本权限系统中，�
 | --- | --- |
 | PROPOSAL MINER | 1 |
 | VERIFY MINER | 2 |
+| PROPOSAL AND VERIFY MINER | 3 |
 
 节点状态说明：
 
@@ -199,18 +200,17 @@ chiron 权限系统是利用智能合约来控制的，在本权限系统中，�
 | NOT IN LIST | 0 |
 | PENDING APPROVAL | 1 |
 | ACTIVE | 2 |
-| SUSPENDED | 3 |
+| PENDING SUSPENDED | 3 |
+| SUSPENDED | 4 |
 
 矿工状态说明：
 
 | 状态描述 | 值 |
 | --- | --- |
-| MINER NO ACTION | 0 |
-| MINER PENDING ACTIVATE | 1 |
-| MINER ACTIVATED | 2 |
-| MINER PENDING ABORT | 3 |
-| MINER ABORTED | 4 |
-| MINER ABORTED REVOKE | 5 |
+| MINER NOT VALIDATED | 0 |
+| MINER PENDING VALIDATED | 1 |
+| MINER VALIDATED | 2 |
+| MINER PENDING ABOLISH | 3 |
 
 组织状态说明：
 
@@ -243,4 +243,4 @@ chiron 权限系统是利用智能合约来控制的，在本权限系统中，�
 | VOTE OP REMOVE ALLIANCE ADMIN | 5 |
 | VOTE OP ADD MINER NODE | 6 |
 | VOTE OP ASSIGN NODE TO MINER | 7 |
-| VOTE OP UPDATE MINER STATUS | 8 |
+| VOTE OP REMOVE MINER | 8 |
