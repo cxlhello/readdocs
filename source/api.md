@@ -25,12 +25,7 @@
 
 #### Parameters
 
-1. ```
-   Object
-   ```
-
-   -transaction交易体，json格式
-
+1. `Object`-transaction交易体，json格式
    - `source`: 发送交易源地址
    - `target`: 接收地址
    - `value`:发送的金额, 单位RA，各单位间换算：109RA=106kRA=103mRA=1Chc
