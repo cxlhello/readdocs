@@ -17,7 +17,6 @@
    security_control/index.rst
    storage/index.rst
    data_structure/index.rst
-   rpc/index.rst
 
 
 
