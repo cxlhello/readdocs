@@ -31,6 +31,129 @@ class Storage(object):  
 
 虚拟机执行合约需要消耗资源，防止被用户恶意调用合约，使用Gas机制控制资源消耗。
 
+|  |Gas  |单位|
+| --- | --- | --- |
+| 执行时间 | 1 | 微秒 |
+| 写入Block | 1.9073486328125 | byte |
+| 内存使用 | 0.03814697265625 | byte |
+| 写入日志 | 0.095367431640625 | byte | 
+| 写入stateDB | 0.3814697265625 | byte | 
+| 交易 | 1000.54321289062 | Gas | 
+
+opcode费用详情
+
+|opcode|Compute (µs)| means|
+| --- | --- | --- |
+|MP_BC_LOAD_CONST_FALSE| 2|a=FALSE|
+|MP_BC_LOAD_CONST_NONE|2|a=None|
+|MP_BC_LOAD_CONST_TRUE|2|a=TRUE|
+|MP_BC_LOAD_CONST_SMALL_INT|2|定义一个int值a=1|
+|MP_BC_LOAD_CONST_STRING|3|定义一个string值a="tas"|
+|MP_BC_LOAD_CONST_OBJ|3|加载object|
+|MP_BC_LOAD_NULL|2|加载None数据|
+|MP_BC_LOAD_FAST_N| 5|声明一个内嵌函数|
+|MP_BC_LOAD_DEREF|2|为传入参数赋值def funA(a=1)|
+|MP_BC_LOAD_NAME|5|a=funA(),根据类/函数名加载类/函数|
+|MP_BC_LOAD_GLOBAL| 5|加载全局变量 funcA中声明一个global的变量x，外部funcA.x|
+|MP_BC_LOAD_ATTR|3|获取init方法中的的属性|
+|MP_BC_LOAD_METHOD| 5|调用class A中的funcA()方法|
+|MP_BC_LOAD_SUPER_METHOD|5|调用父类中的方法|
+|MP_BC_LOAD_BUILD_CLASS| 3|声明一个class，如class Foo():|
+|MP_BC_LOAD_SUBSCR| 8|获取子数组中数据，如:b=a[0:3]|
+|MP_BC_STORE_FAST_N|5|存储内嵌函数|
+|MP_BC_STORE_DEREF| 5|存储预定义的数据|
+|MP_BC_STORE_NAME|5|存储预定义的class name或者func name|
+|MP_BC_STORE_GLOBAL|5|存储全局变量|
+|MP_BC_STORE_ATTR|5|存储类属性，如:class T():__init__()| t = T()|
+|MP_BC_STORE_SUBSCR|5|添加map的value值，如m[2] = 3|
+|MP_BC_DELETE_FAST| 8|删除内嵌函数|
+|MP_BC_DELETE_DEREF|8|删除defer的值|
+|MP_BC_DELETE_NAME| 8|删除一个变量/函数/类|
+|MP_BC_DELETE_GLOBAL| 8|删除全局|
+|MP_BC_DUP_TOP|2|复制栈顶元素到栈顶+1位置|
+|MP_BC_DUP_TOP_TWO| 2|复制sp[-2]到sp[0],sp[-3]到sp[-1]|
+|MP_BC_POP_TOP|2|pop出集合中的元素|
+|MP_BC_ROT_TWO|2|复制sp[-1]到sp[0], sp[0]到sp[-1]|
+|MP_BC_ROT_THREE|2|复制sp[-1]到sp[0],sp[-1]到sp[-1],sp[0]到sp[-2]|
+|MP_BC_JUMP|2|跳转，如while(2<3)会跳转到满足条件的指定行|
+|MP_BC_POP_JUMP_IF_TRUE| 2|if(True):|
+|MP_BC_POP_JUMP_IF_FALSE|2|if(True):|
+|MP_BC_JUMP_IF_TRUE_OR_POP|2|if(True) or|
+|MP_BC_JUMP_IF_FALSE_OR_POP|2|if(False) or|
+|MP_BC_SETUP_WITH|8|声明一个有__enter__和__exit__的类名如：with ClassName as something|
+|MP_BC_WITH_CLEANUP|10|调用__exit__()函数后执行清除操作|
+|MP_BC_SETUP_EXCEPT|2|except语句|
+|MP_BC_SETUP_FINALLY| 2|finall语句开始|
+|MP_BC_END_FINALLY| 0|finally语句结束|
+|MP_BC_GET_ITER| 3|单个执行迭代器中的一个迭代|
+|MP_BC_FOR_ITER| 2|循环遍历数组中元素|
+|MP_BC_POP_BLOCK|2|从块执行栈中移除栈顶块|
+|MP_BC_POP_EXCEPT|2|函数执行过程中异常处理|
+|MP_BC_UNWIND_JUMP| 8|未知|
+|MP_BC_GET_ITER_STACK|2|获取列表迭代器栈，如:for i in iter(lst):|
+|MP_BC_BUILD_TUPLE| 3|传入参数个数，如：def funcA(a, b, c)|
+|MP_BC_BUILD_LIST|3|创建一个list|
+|MP_BC_BUILD_MAP|3|创建一个map|
+|MP_BC_STORE_MAP|3|存储一个map|
+|MP_BC_BUILD_SET|3|初始化一个set，如:a=set() a={11,22,33}|
+|MP_BC_BUILD_SLICE| 3|初始化一个slice|
+|MP_BC_STORE_COMP|2|未知|
+|MP_BC_UNPACK_SEQUENCE|3|解包，如a=[2,3,4,5] b=a[0:2]|
+|MP_BC_UNPACK_EX|3|抛未知异常|
+|MP_BC_RETURN_VALUE|3|一个有返回值的函数如：return 1|
+|MP_BC_RAISE_VARARGS| 5|raise语句|
+|MP_BC_YIELD_VALUE|3|已去除yield语法|
+|MP_BC_YIELD_FROM| 20|已去除yield语法|
+|MP_BC_MAKE_FUNCTION| 20|声明一个函数,如def foo():|
+|MP_BC_MAKE_FUNCTION_DEFARGS |20|声明一个带有默认值的方法|
+|MP_BC_MAKE_CLOSURE|20|调用一个闭包|
+|MP_BC_MAKE_CLOSURE_DEFARGS|20|调用一个带有默认值的闭包方法|
+|MP_BC_CALL_FUNCTION| 20|调用一个方法|
+|MP_BC_CALL_FUNCTION_VAR_KW|20|调用一个有传入参数的方法|
+|MP_BC_CALL_METHOD| 20|调用一个类中的方法|
+|MP_BC_CALL_METHOD_VAR_KW| 20|调用一个类中有传入参数的方法|
+|MP_BC_IMPORT_NAME| 20|import包，如import ctime|
+|MP_BC_IMPORT_FROM| 20|from xxx import xxx|
+|MP_BC_IMPORT_STAR|2|import*|
+|MP_BC_LOAD_CONST_SMALL_INT_MULTI| 8|宏关闭状态，不会走到|
+|MP_BC_LOAD_FAST_MULTI|5|同上|
+|MP_BC_STORE_FAST_MULTI| 5|同上|
+|MP_BC_UNARY_OP_MULTI| 10|同上|
+|MP_BC_BINARY_OP_MULTI|8|同上|
+|//Account| | |
+|MP_BC_CREATE_ACCOUNT|40|account.createAccount|
+|MP_BC_SUB_BALANCE| 20|account.subBalance|
+|MP_BC_GET_BALANCE| 20|account.getBalance|
+|MP_BC_ADD_BALANCE| 20|account.addBalance|
+|MP_BC_GET_CODE_HASH| 20|account.getCodeHash|
+|MP_BC_GET_CODE| 20|account.getCode|
+|MP_BC_SET_CODE| 20|account.setCode|
+|MP_BC_GET_CODE_SIZE| 20|account.getCodeSize|
+|MP_BC_GET_NONCE|20|account.getNonce|
+|MP_BC_SET_NONCE|20|account.setNonce|
+|MP_BC_ADD_REFUND|20|account.addRefund|
+|MP_BC_GET_REFUND|20|account.getRedund|
+|MP_BC_GET_STATE|20|account.getState|
+|MP_BC_SET_STATE|20|account.setState|
+|MP_BC_SUICIDE|10|account.suicide|
+|MP_BC_HAS_SUICIDED|20|account.hasSuicided|
+|MP_BC_EXISTS| 20|account.exists|
+|MP_BC_EMPTY|20|account.empty|
+|MP_BC_REVERT_TO_SNAPSHOT| 20|account.revertToSnapshot|
+|MP_BC_SNAPSHOT| 20|account.snapshot|
+|MP_BC_TRANSFER| 40|account.transfer|
+|MP_BC_IS_CONTRACT_CREATER|20|account.isContractCreater|
+|MP_BC_CONTRACT_ADDR| 20|account.contractAddr|
+|//Block| | |
+|MP_BC_BLOCKHASH|20|block.blockhash|
+|MP_BC_COINBASE| 20|block.coinbase|
+|MP_BC_DIFFICULT|20|block.difficult|
+|MP_BC_NUMBER|20|block.number|
+|MP_BC_TIMESTAMP|20|block.timestamp|
+|MP_BC_GASLIMIT| 20|block.gaslimit|
+|//TX| | |
+|MP_BC_ORIGIN| 20|tx.origin|
+
 与CPython的异同点：
 主要删减的功能：
   - 禁止使用float类型
@@ -51,33 +174,29 @@ class Storage(object):  
  
 ###智能合约与链交互的其他方法
 ```
-1.import account  
-2.import block  
-3.  
-4.''''' 
-5.@str: 要查询的地址 
-6.returns(int) 返回地址的余额 
-7.'''  
-8.account.get_balance(str)  
-9.  
-10.''''' 
-11.@str: 要转账的地址 
-12.@int: 要转账的金额 
-13.returns(bool) 返回转账是否成功 
-14.'''  
-15.account.transfer(str, int)  
-16.  
-17.''''' 
-18.@int: 要查询的块高 
-19.returns(str) 返回查询的块hash 
-20.'''  
-21.block.blockhash(int)  
-22.  
-23.''''' 
-24.returns(str) 返回当前块高 
-25.'''  
-26.block.number()
-
+import account  
+import block  
+  
+''''' 
+    @str: 要查询的地址 
+    returns(int) 返回地址的余额 
+'''  
+    account.get_balance(str)  
+''''' 
+    @str: 要转账的地址 
+    @int: 要转账的金额 
+    returns(bool) 返回转账是否成功 
+'''  
+    account.transfer(str, int)    
+''''' 
+    @int: 要查询的块高 
+    returns(str) 返回查询的块hash 
+'''  
+    block.blockhash(int)    
+''''' 
+    returns(str) 返回当前块高 
+'''  
+    block.number()
 ```
  
 ### 合约支持的数据存储
