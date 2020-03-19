@@ -12,7 +12,7 @@
 
    architecture/index.rst
    consensus/index.rst
-   virtual_machine/index.rst
+   virtual_machine/virtual.md
    p2p/index.md
    security_control/index.rst
    storage/index.rst
