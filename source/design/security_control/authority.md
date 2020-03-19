@@ -60,7 +60,7 @@ chiron权限系统根据智能合约调用做权限控制,主要用以下7个合
 **`NodeMgr合约`**：对节点进行管理的合约，可以指定某个节点是否有挖矿权限。通过`PermissionsImplementation合约`调用。
 
 
-## 3.chiron permission APIs
+## 四.chiron permission APIs
 **↓↓↓↓↓以下基于联盟内的操作都需要通过联盟管理员操作，且需要两步完成，即申请+批准↓↓↓↓↓**
 #### add_org
 用来在联盟中添加一个新组织时候使用。该方法仅可以被联盟管理员调用
