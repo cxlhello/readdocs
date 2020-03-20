@@ -15,8 +15,6 @@
    virtual_machine/virtual.md
    p2p/index.md
    security_control/index.rst
-   storage/index.rst
-   data_structure/index.rst
 
 
 

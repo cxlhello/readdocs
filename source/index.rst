@@ -16,7 +16,6 @@ CHIRON 是一个稳定、高效、安全的区块链底层平台。
    introduction.md
    design/index.rst
    installation.md
-   manual/index.rst
    api.md
    browser/index.md
    webide/ide.md
