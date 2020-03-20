@@ -12,7 +12,7 @@
 
 
 
-## nat[⇧](https://docs.chiron.one/installation.html#模块概览)
+## nat
 
 #### 配置文件模版：docker-compose.yml
 
@@ -43,7 +43,7 @@ bash
 
 
 
-## chiron[⇧](https://docs.chiron.one/installation.html#模块概览)
+## chiron
 
 #### 配置文件模版：docker-compose.yml
 
@@ -95,7 +95,7 @@ bash
 
 
 
-## browser（浏览器）[⇧](https://docs.chiron.one/installation.html#模块概览)
+## browser（浏览器）
 
 #### 配置文件模版：docker-compose.yml
 
@@ -135,7 +135,7 @@ bash
 
 提醒：浏览器节点和浏览器观察节点可放在同一个yml文件中使用，
 
-## broswer_chiron（浏览器观察节点）[⇧](https://docs.chiron.one/installation.html#模块概览)
+## broswer_chiron（浏览器观察节点）
 
 #### 配置文件模版：docker-compose.yml
 
@@ -196,7 +196,7 @@ bash
 
 
 
-## mysql[⇧](https://docs.chiron.one/installation.html#模块概览)
+## mysql
 
 #### 配置文件模版：docker-compose.yml
 
