@@ -14,8 +14,6 @@
 - [Gch_minerPoolInfo]()
 - [Gch_minerInfo]()
 - [Gch_transDetail]()
-- [Gch_checkPointAt]()
-- [Gch_latestCheckPoint]()
 
 
 
