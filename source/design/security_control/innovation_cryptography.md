@@ -14,6 +14,7 @@
  ![](crypto_1.png)
 具体执行步骤如下：
  ![](crypto_11.png)
+
  ![](crypto_12.png)
  ![](crypto_13.png)
 
@@ -36,9 +37,6 @@
 
  ### 动态提案组
   ![](crypto7.png)
-
- ### 动态提案组
-   ![](crypto7.png)
    
  ### 验证组验证签名
   ![](crypto8.png)
